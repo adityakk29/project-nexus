@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}{{ lesson.title }} — Nexus{% endblock %}
+{% block breadcrumb %}{{ content.label|upper }} / LESSON {{ lesson.number }}{% endblock %}
+{% block content %}
+<section class="lesson-view {{ content.color }}-wash">
+  <a class="back-link" href="{{ url_for('section', slug=request.view_args.slug) }}">← Back to {{ content.label }}</a>
+  <div class="eyebrow"><span class="section-symbol">{{ content.icon }}</span> Lesson 0{{ lesson.number }} · {{ content.label }}</div>
+  <h1>{{ lesson.title }}</h1>
+  <p class="lesson-lede">{{ lesson.note }}</p>
+</section>
+<section class="lesson-body">
+  <div class="lesson-column"><div class="eyebrow">The idea</div><h2>Make the signal visible.</h2><p>{{ lesson.note }} In an interview, narrate the observation before reaching for implementation details. That lets the interviewer evaluate your reasoning, not just your final code.</p><h3>A useful sequence</h3><ol><li>State the constraint you are responding to.</li><li>Name the invariant or guarantee you want to preserve.</li><li>Walk through one ordinary case and one edge case.</li><li>Close with complexity, risk, and the next improvement.</li></ol></div>
+  <aside class="prompt-panel"><div class="eyebrow">Interview prompt</div><h2>{{ lesson.prompt }}</h2><p>Give yourself five minutes. Say your assumptions aloud, then write the smallest example that proves your approach.</p><a class="button button-primary" href="{{ url_for('section', slug=request.view_args.slug) }}">Return to path <span>→</span></a></aside>
+</section>
+{% endblock %}
