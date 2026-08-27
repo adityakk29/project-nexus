@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Nexus senior engineering interview preparation.">
+  <title>{% block title %}Nexus — Senior engineering interview prep{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="app-body">
+  <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+  <button class="mobile-menu" type="button" aria-label="Open navigation" aria-expanded="false">☰</button>
+  <aside class="sidebar" aria-label="Nexus navigation">
+    <div class="sidebar-top"><a class="brand" href="{{ url_for('home') }}"><span class="brand-mark">N</span><span class="brand-word">nexus</span></a><button class="collapse-button" type="button" aria-label="Collapse navigation" aria-expanded="true">←</button></div>
+    <div class="sidebar-label">Your workspace</div>
+    <nav class="side-nav">
+      {% for slug, label, icon in navigation["items"] %}
+      <a class="side-link {% if navigation.active == slug %}active{% endif %}" href="{% if slug == 'overview' %}{{ url_for('home') }}{% else %}{{ url_for('section', slug=slug) }}{% endif %}"><span class="side-icon">{{ icon }}</span><span class="side-text">{{ label }}</span></a>
+      {% endfor %}
+    </nav>
+    <div class="sidebar-label side-label-secondary">Go deeper</div>
+    <nav class="side-nav">
+      {% for slug, label in navigation["secondary"] %}
+      <a class="side-link {% if navigation.active == slug %}active{% endif %}" href="{{ url_for(slug) }}"><span class="side-icon">{% if slug == 'method' %}◎{% else %}✦{% endif %}</span><span class="side-text">{{ label }}</span></a>
+      {% endfor %}
+    </nav>
+    <div class="sidebar-foot"><span class="progress-ring">32%</span><span class="side-text"><b>Your progress</b><small>Keep the thread going.</small></span></div>
+  </aside>
+  <div class="page-shell">
+    <header class="topbar"><span class="breadcrumb">NEXUS / <b>{% block breadcrumb %}OVERVIEW{% endblock %}</b></span><div class="topbar-actions"><span class="streak">◎ 4 day streak</span><span class="avatar">AK</span></div></header>
+    <main class="page-content">{% block content %}{% endblock %}</main>
+  </div>
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

@@ -15,7 +15,8 @@ class AppSmokeTest(unittest.TestCase):
         response = self.client.get("/")
 
         self.assertEqual(response.status_code, 200)
-        self.assertIn(b"DSA for senior engineers", response.data)
+        self.assertIn(b"Learning paths", response.data)
+        self.assertIn(b"/section/dsa", response.data)
 
 
 if __name__ == "__main__":

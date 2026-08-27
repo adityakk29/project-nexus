@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}{{ content.label }} — Nexus{% endblock %}
+{% block breadcrumb %}{{ content.label|upper }}{% endblock %}
+{% block content %}
+<section class="content-hero {{ content.color }}-wash">
+  <div class="eyebrow"><span class="section-symbol">{{ content.icon }}</span>{{ content.kicker }}</div>
+  <h1>{{ content.title|replace('\n', '<br>')|safe }}</h1>
+  <p class="page-intro">{{ content.description }}</p>
+  <div class="content-stats">{% for value, label in content.stats %}<div><strong>{{ value }}</strong><span>{{ label }}</span></div>{% endfor %}</div>
+</section>
+<section class="topic-section">
+  <div class="section-heading"><div><div class="eyebrow">Inside this path</div><h2>A clear next move.</h2></div><span class="mono-note">03 MODULES</span></div>
+  <div class="topic-list">{% for number, title, description in content.topics %}<article class="topic-row"><span class="topic-number">{{ number }}</span><div><h3>{{ title }}</h3><p>{{ description }}</p></div><a class="topic-arrow" href="{{ url_for('lesson', slug=request.view_args.slug, number=loop.index) }}" aria-label="Read {{ title }}">↗</a></article>{% endfor %}</div>
+</section>
+{% if content.lessons %}
+<section class="lesson-section" id="lessons">
+  <div class="section-heading"><div><div class="eyebrow">Study notes</div><h2>Build the habit.</h2></div><span class="mono-note">FIELD GUIDE</span></div>
+  <div class="lesson-grid">{% for title, note, prompt in content.lessons %}<article class="lesson-card" id="lesson-{{ loop.index }}"><span class="lesson-index">0{{ loop.index }}</span><h3>{{ title }}</h3><p>{{ note }}</p><div class="lesson-prompt"><span>INTERVIEW PROMPT</span>{{ prompt }}</div></article>{% endfor %}</div>
+</section>
+{% endif %}
+<section class="next-up"><div><div class="eyebrow">Up next</div><h2>{{ content.next }}</h2></div>{% if content.lessons %}<a class="button button-primary" href="#lessons">Begin session <span>→</span></a>{% endif %}</section>
+{% endblock %}
